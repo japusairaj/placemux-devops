@@ -177,3 +177,24 @@ resource "aws_route_table_association" "public_assoc_1b" {
   subnet_id      = aws_subnet.public_1b.id
   route_table_id = aws_route_table.public_rt.id
 }
+
+################################################
+# Application Secret
+################################################
+
+resource "aws_secretsmanager_secret" "dev_app" {
+  name = "placemux/dev/app"
+
+  tags = {
+    Environment = "dev"
+    Project     = "PlaceMux"
+  }
+}
+
+resource "aws_secretsmanager_secret_version" "dev_app_value" {
+  secret_id = aws_secretsmanager_secret.dev_app.id
+
+  secret_string = jsonencode({
+    environment = "dev"
+  })
+}

@@ -1,0 +1,30 @@
+name: Dev Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  validate-build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform -chdir=terraform init
+
+      - name: Terraform Validate
+        run: terraform -chdir=terraform validate
+
+      - name: Build Application
+        run: echo "Build Placeholder"
+
+      - name: Deploy To Dev
+        run: echo "Deploy Placeholder"

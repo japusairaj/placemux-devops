@@ -1,0 +1,7 @@
+private_app_1a = "subnet-01a4be77159e0fe98"
+private_app_1b = "subnet-033f526ce54da887c"
+private_db_1a = "subnet-094e3baaa89a859d2"
+private_db_1b = "subnet-02c02c1335d5b2621"
+public_subnet_1a = "subnet-02acd10bb247bf738"
+public_subnet_1b = "subnet-08d81dcabe07adf13"
+vpc_id = "vpc-0405dd7a2c2d08c4e"
