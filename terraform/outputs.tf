@@ -29,3 +29,15 @@ output "private_db_1b" {
 output "postgres_endpoint" {
   value = aws_db_instance.placemux_postgres.endpoint
 }
+
+output "artifacts_bucket_name" {
+  value = aws_s3_bucket.placemux_artifacts.bucket
+}
+
+output "analytics_bucket_name" {
+  value = aws_s3_bucket.placemux_analytics.bucket
+}
+
+output "sqs_queue_url" {
+  value = aws_sqs_queue.placemux_events.url
+}
