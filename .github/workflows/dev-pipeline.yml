@@ -3,28 +3,63 @@ name: Dev Pipeline
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
-  validate-build-deploy:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
 
+      # Checkout Repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # Install Dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Run Application Tests
+      - name: Run Tests
+        run: |
+          echo "Running tests..."
+          python -m py_compile app/main.py
+
+      # Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      # Terraform Init
       - name: Terraform Init
         run: terraform -chdir=terraform init
 
+      # Terraform Validate
       - name: Terraform Validate
         run: terraform -chdir=terraform validate
 
-      - name: Build Application
-        run: echo "Build Placeholder"
+      # Docker Build
+      - name: Build Docker Image
+        run: |
+          docker build -t placemux-api:v1 .
 
+      # Inject Secrets
+      - name: Load Secrets
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          echo "Secrets Loaded"
+
+      # Deploy Placeholder
       - name: Deploy To Dev
-        run: echo "Deploy Placeholder"
+        run: |
+          echo "Deploying to Dev Environment"

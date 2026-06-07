@@ -25,3 +25,7 @@ output "private_db_1a" {
 output "private_db_1b" {
   value = aws_subnet.private_db_1b.id
 }
+
+output "postgres_endpoint" {
+  value = aws_db_instance.placemux_postgres.endpoint
+}

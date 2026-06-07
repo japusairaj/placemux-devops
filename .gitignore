@@ -1,4 +1,19 @@
-.terraform/
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+
+# Terraform
 *.tfstate
 *.tfstate.backup
+.terraform/
 terraform.tfvars
+
+# IDE
+.vscode/
+.idea/
+
+# Environment Variables
+.env
